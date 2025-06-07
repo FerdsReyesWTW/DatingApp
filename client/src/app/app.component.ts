@@ -5,7 +5,7 @@ import { Component, inject, OnInit } from '@angular/core';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [NgFor],
+  imports: [],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
