@@ -16,7 +16,7 @@ namespace API.Controllers
     ) : BaseApiController
     {
         [HttpPost("register")]
-        public async Task<ActionResult<AppUser>> Register(RegisterDto registerDto)
+        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
             if (await UserExists(registerDto.Username)) return BadRequest("Username already exist");
 
@@ -32,7 +32,13 @@ namespace API.Controllers
             context.Users.Add(user);
             await context.SaveChangesAsync();
 
-            return Ok(user);
+            var userDto = new UserDto
+            {
+                Username = user.Username,
+                Token = tokenService.CreateToken(user)
+            };
+
+            return Ok(userDto);
         }
 
         [HttpPost("login")]
